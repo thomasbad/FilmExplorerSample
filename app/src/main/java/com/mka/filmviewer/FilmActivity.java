@@ -5,7 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class FilmActivity extends AppCompatActivity {
     private static String DATABASE_PATH_AND_NAME;
@@ -27,6 +31,31 @@ public class FilmActivity extends AppCompatActivity {
 
     Button displayAllRecordsButton, searchButton;
     TextView resultsTextView, searchEditText, numRecordTextView;
+
+    ListView listview;
+    ArrayList<String> list;
+    ArrayAdapter adapter;
+    String[] values = new String[] { "Android", "iPhone",
+            "WindowsMobile","Blackberry", "WebOS", "Ubuntu",
+            "Windows7", "Max OS X","Linux", "OS/2", "Ubuntu" };
+
+    // Objects used for the Spinner
+    Spinner spinner;
+    ArrayList<String> spinnerList;
+    ArrayAdapter spinnerAdapter;
+    // First Value is blank/empty.
+    String[] spinnerValues = new String[] { "Choose a State", "Alabama", "Alaska",
+            "Arizona","Arkansas", "California", "Colorado", "Connecticut",
+            "Delaware","Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
+            "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+            "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+            "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+            "New Hampshire", "New Jersey", "New Mexico", "New York",
+            "North Carolina",
+            "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+            "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+            "Texas","Utah", "Vermont", "Virginia", "Washington", "Washington D.C.",
+            "West Virginia", "Wisconsin", "Wyoming" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
