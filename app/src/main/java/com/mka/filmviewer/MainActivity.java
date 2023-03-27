@@ -33,28 +33,19 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "FILM_DB";
     Context ctx;
 
-    DBOpenHelper dbm;
+    OpenDatabase sqh;
     SQLiteDatabase sqdb;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        setupDatabaseStrings();
-        setUpDatabase(); // Copy the Database music.db to the databases folder
-        InitDataBase(); // open the music.db for reading and writing
-        //SQLAdapter();
 
         //Enter the Explorer
         Button buttonEnter = findViewById(R.id.buttonEnter);
         buttonEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent filmmanager = new Intent(MainActivity.this,FilmExplorer.class);
-                startActivity(filmmanager);
+                startActivity(new Intent(MainActivity.this, FilmActivity.class));
             }
         });
 
@@ -77,66 +68,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-    protected void setupDatabaseStrings()
-    {
-        // Full path to where we will copy music.db to on the emulator!
-        DATABASE_PATH_AND_NAME = "/data/data/" + getApplicationContext().getPackageName() +
-                "/databases/" + DATABASE_NAME;
-        // Used to check if the "databases" folder exists
-        CHECK_DATABASES_FOLDER = "/data/data/" + getApplicationContext().getPackageName() +
-                "/databases";
-        // Debug information
-        Log.i("DATABASE_PATH_AND_NAME","DATABASE_PATH_AND_NAME = " + DATABASE_PATH_AND_NAME);
-        Log.i("CHECK_DATABASES_FOLDER","CHECK_DATABASES_FOLDER = " + CHECK_DATABASES_FOLDER);
-    } // protected void setupDatabaseStrings()
-
-    protected void setUpDatabase()
-    {
-        ctx = this.getBaseContext();
-        try
-        {
-            CopyDataBaseFromAsset();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    } // protected void setUpDatabase()
-
-    protected void CopyDataBaseFromAsset() throws IOException
-    {
-        Log.w( LOG_TAG , "Starting copying...");
-        String outputFileName = DATABASE_PATH_AND_NAME;
-        File databaseFolder = new File( CHECK_DATABASES_FOLDER );
-        // databases folder exists ? No - Create it and copy !!!
-        if ( !databaseFolder.exists() )
-        {
-            databaseFolder.mkdir();
-            // Open the sqlite database "music.db" found in the assets folder
-            InputStream in = ctx.getAssets().open(DATABASE_NAME);
-            OutputStream out = new FileOutputStream(outputFileName);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ( (length = in.read(buffer)) > 0 )
-            {
-                out.write(buffer,0,length);
-            } // while ( (length = in.read(buffer)) > 0 )
-            out.flush();
-            out.close();
-            in.close();
-            Log.w(LOG_TAG, "Completed.");
-        } // if ( !databaseFolder.exists() )
-    } // protected void CopyDataBaseFromAsset() throws IOException
-
-    public void InitDataBase()
-    {
-        // Init the SQLite Helper Class
-        dbm = new DBOpenHelper(this);
-
-        // RETRIEVE A READABLE AND WRITEABLE DATABASE
-        sqdb = dbm.getWritableDatabase();
-
-    } // public void InitDataBase()
-
 }
