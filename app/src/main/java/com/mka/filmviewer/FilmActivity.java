@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -40,22 +41,11 @@ public class FilmActivity extends AppCompatActivity {
             "Windows7", "Max OS X","Linux", "OS/2", "Ubuntu" };
 
     // Objects used for the Spinner
-    Spinner spinner;
+    Spinner spinnerEditRecord;
     ArrayList<String> spinnerList;
     ArrayAdapter spinnerAdapter;
-    // First Value is blank/empty.
-    String[] spinnerValues = new String[] { "Choose a State", "Alabama", "Alaska",
-            "Arizona","Arkansas", "California", "Colorado", "Connecticut",
-            "Delaware","Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
-            "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
-            "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
-            "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
-            "New Hampshire", "New Jersey", "New Mexico", "New York",
-            "North Carolina",
-            "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
-            "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
-            "Texas","Utah", "Vermont", "Virginia", "Washington", "Washington D.C.",
-            "West Virginia", "Wisconsin", "Wyoming" };
+    // Spinner array
+    String[] spinnerValues = new String[] {"Choose Additional Functions", "Add New Record", "Edit Current Record"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +83,8 @@ public class FilmActivity extends AppCompatActivity {
 //        } c.close();
 //    } //public void DisplayRecords()*/
 
+
+    //-------------DB Setup---------------//
     private void InitDataBase() {
         sqh = new OpenDatabase(this);
         sqdb = sqh.getWritableDatabase();
@@ -108,7 +100,9 @@ public class FilmActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    //-----------------End of DB Setup---------------------------//
 
+    //Copy default database from asset folder if not exist
     private void CopyDatabaseFromAsset() throws IOException {
 
         Log.w(LOG_TAG, "Starting copy...");
@@ -130,7 +124,7 @@ public class FilmActivity extends AppCompatActivity {
         }
 
     }
-
+    //Setup Database location
     private void setupDatabaseStrings() {
         CHECK_DATABASES_FOLDER = "/data/data/" + getApplicationContext().getPackageName() + "/databases";
         DATABASE_PATH_AND_NAME = "/data/data/" + getApplicationContext().getPackageName() + "/databases/" + OpenDatabase.DATABASE_NAME;
@@ -140,6 +134,8 @@ public class FilmActivity extends AppCompatActivity {
     }
 
     protected void setupControls() {
+
+        //------------------Display all function----------------------------//
         displayAllRecordsButton = findViewById(R.id.displayAllRecordsButton);
 //        resultsTextView = findViewById(R.id.resultsTextView);
         displayAllRecordsButton.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +145,9 @@ public class FilmActivity extends AppCompatActivity {
             }
         });
 
+        //------------------End of Display all function----------------------------//
+
+        //------------------Search function----------------------------------------//
         searchEditText = findViewById(R.id.searchEditText);
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +157,32 @@ public class FilmActivity extends AppCompatActivity {
                         searchEditText.getText().toString()));
             }
         });
+        //------------------End of Search function----------------------------------------//
+        //-------------------------Setup Spinner------------------------------------------//
 
+        //Spinner Options
+        spinnerEditRecord = (Spinner)findViewById(R.id.spinnerEditRecord);
+        spinnerList = new ArrayList<String>();
+        for (int i = 0; i < spinnerValues.length; ++i)
+        {
+            spinnerList.add(spinnerValues[i]);
+        }
+
+        //Setup and connect adapter
+        spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerList);
+        spinnerEditRecord.setAdapter(spinnerAdapter);
+
+        //Spinner function
+        spinnerEditRecord.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position,
+                                       long id) {
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        //-------------------------End ofSetup Spinner------------------------------------------//
     }
 }

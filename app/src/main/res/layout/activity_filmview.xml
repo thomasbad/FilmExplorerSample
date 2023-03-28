@@ -60,7 +60,7 @@
     </LinearLayout>
 
     <Spinner
-        android:id="@+id/spinnerEditrRecord"
+        android:id="@+id/spinnerEditRecord"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp" />
