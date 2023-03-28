@@ -59,38 +59,40 @@ public class OpenDatabase extends SQLiteOpenHelper
         return result;
     } // public String allRecords(SQLiteDatabase sqdb)
 
-    public String searchRecords(SQLiteDatabase sqdb, String searchYear)
+    public String searchRecords(SQLiteDatabase sqdb,  String searchText)
     {
-        String result = "";
-        Cursor c = sqdb.rawQuery("SELECT * FROM FilmTable where year = '" + searchYear + "'",
-                null);
+        String result = "*********************************************\n\n";
+        Cursor c = sqdb.rawQuery("SELECT * FROM FilmTable where " +
+                "FilmTitle LIKE '%" + searchText + "%' OR " +
+                "Year LIKE '%" + searchText + "%' OR Director LIKE '%" + searchText +
+                "%' OR Country LIKE '%" + searchText + "%'", null);
         if (c != null)
         {
             if (c.moveToFirst())
             {
                 do
                 {
-//                    String id = c.getString(0);
-//                    result = result + id + ",";
-//                    String songtitle = c.getString(1);
-//                    result = result + songtitle + ",";
-//                    String year = c.getString(2);
-//                    result = result + year + ",";
-//                    String artist = c.getString(3);
-//                    result = result + artist + ",";
-//                    String album = c.getString(4);
-//                    result = result + album + "\n"; // new line control character
-//                    Log.w("SONG_TABLE", "ID = " + id + " Songtitle = " + songtitle);
+                    String id = c.getString(0);
+                    result = result + "ID: " + id;
+                    String filmTitle = c.getString(1);
+                    result = result + "\nTitle: " + filmTitle;
+                    String year = c.getString(2);
+                    result = result + "\nYear: " + year;
+                    String director = c.getString(3);
+                    result = result + "\nDirector: " + director;
+                    String country = c.getString(4);
+                    result = result + "\nCountry: " + country + "\n\n*********************************************\n\n";
+                    //Log.w("FILM_TABLE", "ID = " + id + " Film title = " + filmTitle);
                 } while (c.moveToNext());
             }
             else
             {
-                result = "No Records Found for the Search Year = " + searchYear;
+                result = "No Records is Found for the searching word = " + searchText;
             }
         }
         c.close();
         return result;
-    } // public String searchRecords(SQLiteDatabase sqdb, String searchYear)
+    } // public String searchRecords(SQLiteDatabase sqdb)
 
     //Count number of records exist in DB
     public int countRecords(SQLiteDatabase sqdb)

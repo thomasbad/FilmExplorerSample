@@ -133,8 +133,10 @@ public class FilmActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resultsTextView.setText(sqh.searchRecords(sqdb,
-                        searchEditText.getText().toString()));
+                resultsTextView.setText(sqh.searchRecords(sqdb, searchEditText.getText().toString()));
+                //Hide soft Keyboard after button click to avoid the keyboard blocking the result view
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(mainWindow.getWindowToken(), 0);
             }
         });
         //------------------End of Search function----------------------------------------//
