@@ -5,10 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,21 +27,15 @@ import java.util.ArrayList;
 public class FilmActivity extends AppCompatActivity {
     private static String DATABASE_PATH_AND_NAME;
     private static String CHECK_DATABASES_FOLDER;
-    //private static final String DATABASE_NAME = "music.db";
-    private static final String LOG_TAG = "MUSIC_DB";
+    //private static final String DATABASE_NAME = "film.db";
+    private static final String LOG_TAG = "FILM_DB";
+    LinearLayout mainWindow; //set up layout for hide keyboard purpose
     Context ctx;
     OpenDatabase sqh;
     SQLiteDatabase sqdb;
 
     Button displayAllRecordsButton, searchButton;
     TextView resultsTextView, searchEditText, numRecordTextView;
-
-    ListView listview;
-    ArrayList<String> list;
-    ArrayAdapter adapter;
-    String[] values = new String[] { "Android", "iPhone",
-            "WindowsMobile","Blackberry", "WebOS", "Ubuntu",
-            "Windows7", "Max OS X","Linux", "OS/2", "Ubuntu" };
 
     // Objects used for the Spinner
     Spinner spinnerEditRecord;
@@ -51,37 +48,17 @@ public class FilmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filmview);
+        mainWindow = findViewById(R.id.mainWindow); //set up layout for hide keyboard purpose
 
         setupDatabaseStrings();
         SETUPDatabase();
 
         InitDataBase();
-//        sqh.DisplayRecords(sqdb);
         setupControls();
 
         numRecordTextView = findViewById(R.id.numRecordTextView);
         numRecordTextView.setText(Integer.toString(sqh.countRecords(sqdb)));
     }
-
-//    private void DisplayRecords()
-//    {
-//        Cursor c = sqdb.rawQuery("SELECT * FROM songtable", null);
-//        if (c != null)
-//        {
-//            if (c.moveToFirst())
-//            {
-//                do
-//                {
-//                    String id = c.getString(0);
-//                    String songtitle = c.getString(1);
-//                    String year = c.getString(2);
-//                    String artist = c.getString(3);
-//                    String album = c.getString(4);
-//                    Log.w("SONG_TABLE", "ID = " + id + " Songtitle = " + songtitle);
-//                } while (c.moveToNext());
-//            }
-//        } c.close();
-//    } //public void DisplayRecords()*/
 
 
     //-------------DB Setup---------------//
@@ -137,11 +114,14 @@ public class FilmActivity extends AppCompatActivity {
 
         //------------------Display all function----------------------------//
         displayAllRecordsButton = findViewById(R.id.displayAllRecordsButton);
-//        resultsTextView = findViewById(R.id.resultsTextView);
+        resultsTextView = findViewById(R.id.resultsTextView);
         displayAllRecordsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                resultsTextView.setText(sqh.allRecordsInSongtable(sqdb));
+                resultsTextView.setText(sqh.allRecords(sqdb));
+                //Hide soft Keyboard after button click to avoid the keyboard blocking the result view
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(mainWindow.getWindowToken(), 0);
             }
         });
 
