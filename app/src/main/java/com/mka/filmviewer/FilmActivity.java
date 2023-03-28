@@ -45,8 +45,6 @@ public class FilmActivity extends AppCompatActivity {
     // Spinner array
     String[] spinnerValues = new String[] {"Choose Additional Functions", "Add New Record", "Edit Current Record"};
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
