@@ -7,9 +7,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mka.filmviewer.FilmExplorer;
-import com.mka.filmviewer.MainActivity;
-
 public class AboutActivity extends AppCompatActivity {
 
     Button backButton;
