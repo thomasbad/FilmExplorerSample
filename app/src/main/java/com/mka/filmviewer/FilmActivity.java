@@ -100,7 +100,6 @@ public class FilmActivity extends AppCompatActivity {
             in.close();
             Log.w(LOG_TAG, "Complete");
         }
-
     }
     //Setup Database location
     private void setupDatabaseStrings() {
@@ -125,7 +124,6 @@ public class FilmActivity extends AppCompatActivity {
                 imm.hideSoftInputFromWindow(mainWindow.getWindowToken(), 0);
             }
         });
-
         //------------------End of Display all function----------------------------//
 
         //------------------Search function----------------------------------------//
@@ -158,14 +156,25 @@ public class FilmActivity extends AppCompatActivity {
         //Spinner function
         spinnerEditRecord.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position,
-                                       long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Object item = parent.getItemAtPosition(position);
+                if (position != 0) // do they select the first entry "" empty!
+                {
 
+                }
+                else if (position == 1)
+                {
+
+                }
+                else if (position == 2)
+                {
+
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        //-------------------------End ofSetup Spinner------------------------------------------//
+        //-------------------------End of Setup Spinner------------------------------------------//
     }
 }
