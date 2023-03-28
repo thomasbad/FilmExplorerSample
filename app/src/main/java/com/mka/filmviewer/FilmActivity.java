@@ -29,6 +29,7 @@ public class FilmActivity extends AppCompatActivity {
     private static String CHECK_DATABASES_FOLDER;
     //private static final String DATABASE_NAME = "film.db";
     private static final String LOG_TAG = "FILM_DB";
+    private String blockCharacterSet = "~#^|$%&*!";
     LinearLayout mainWindow; //set up layout for hide keyboard purpose
     Context ctx;
     OpenDatabase sqh;
@@ -43,6 +44,8 @@ public class FilmActivity extends AppCompatActivity {
     ArrayAdapter spinnerAdapter;
     // Spinner array
     String[] spinnerValues = new String[] {"Choose Additional Functions", "Add New Record", "Edit Current Record"};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

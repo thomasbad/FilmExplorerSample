@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Type Your Search Here"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "/>
 
     <LinearLayout
         android:id="@+id/buttonLayer"
