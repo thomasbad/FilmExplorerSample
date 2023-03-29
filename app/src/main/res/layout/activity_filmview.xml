@@ -13,7 +13,7 @@
         android:ems="10"
         android:hint="Type Your Search Here"
         android:inputType="textPersonName"
-        android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "/>
+        android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz- "/>
 
     <LinearLayout
         android:id="@+id/buttonLayer"

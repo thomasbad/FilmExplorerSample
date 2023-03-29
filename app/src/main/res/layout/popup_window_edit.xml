@@ -26,7 +26,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Enter the ID here"
-            android:inputType="number" />
+            android:inputType="number"
+            android:digits="0123456789"/>
     </LinearLayout>
 
     <LinearLayout
@@ -51,7 +52,8 @@
             android:ems="10"
             android:hint="Film Title"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-"/>
     </LinearLayout>
 
     <LinearLayout
@@ -76,7 +78,8 @@
             android:ems="10"
             android:hint="Release Year"
             android:inputType="number"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:digits="0123456789"/>
     </LinearLayout>
 
     <LinearLayout
@@ -101,7 +104,8 @@
             android:ems="10"
             android:hint="Directer's Name"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-"/>
     </LinearLayout>
 
     <LinearLayout
@@ -125,7 +129,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Country"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-"/>
 
     </LinearLayout>
 

@@ -29,7 +29,8 @@
             android:ems="10"
             android:hint="Film Title"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-"/>
     </LinearLayout>
 
     <LinearLayout
@@ -44,7 +45,7 @@
             android:layout_weight="1"
             android:text="Year: "
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/editTexYearEdit"
@@ -54,7 +55,8 @@
             android:ems="10"
             android:hint="Release Year"
             android:inputType="number"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:digits="0123456789"/>
     </LinearLayout>
 
     <LinearLayout
@@ -79,7 +81,8 @@
             android:ems="10"
             android:hint="Directer's Name"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-"/>
     </LinearLayout>
 
     <LinearLayout
@@ -104,7 +107,8 @@
             android:ems="10"
             android:hint="Country"
             android:inputType="textPersonName"
-            tools:ignore="TouchTargetSizeCheck" />
+            tools:ignore="TouchTargetSizeCheck"
+            android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-"/>
 
     </LinearLayout>
 
