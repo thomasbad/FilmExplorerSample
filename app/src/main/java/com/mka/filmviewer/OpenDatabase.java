@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,6 +95,18 @@ public class OpenDatabase extends SQLiteOpenHelper
         c.close();
         return result;
     } // public String searchRecords(SQLiteDatabase sqdb)
+
+    public String addRecords(SQLiteDatabase sqdb,  String filmTitle, String directerName, String Year, String Country)
+    {
+            String result = "Add Records success";
+            Cursor c = sqdb.rawQuery("INSERT INTO FilmTable (FilmTitle, Year, Director, Country) " +
+                    "VALUES (" + filmTitle + ", " + directerName + ", " + Year + ", " + Country + ");", null);
+
+            c.close();
+            return result;
+    } // public String searchRecords(SQLiteDatabase sqdb)
+
+
 
     //Count number of records exist in DB
     public int countRecords(SQLiteDatabase sqdb)

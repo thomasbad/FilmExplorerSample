@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -11,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,8 +39,8 @@ public class FilmActivity extends AppCompatActivity {
     OpenDatabase sqh;
     SQLiteDatabase sqdb;
 
-    Button displayAllRecordsButton, searchButton;
-    TextView resultsTextView, searchEditText, numRecordTextView;
+    Button displayAllRecordsButton, searchButton, buttonOK, buttonCancel;
+    TextView resultsTextView, searchEditText, numRecordTextView, editTextFilmTitleEdit, editTexYearEdit, editTextDirectorEdit, editTextCountryEdit, editTextID, editTextFilmTitle, editTexYear, editTextDirector, editTextCountry;
 
     // Objects used for the Spinner
     Spinner spinnerEditRecord;
@@ -164,7 +168,7 @@ public class FilmActivity extends AppCompatActivity {
                 }
                 else if (position == 1)
                 {
-
+                    AddRecord();
                 }
                 else if (position == 2)
                 {
@@ -177,4 +181,87 @@ public class FilmActivity extends AppCompatActivity {
         });
         //-------------------------End of Setup Spinner------------------------------------------//
     }
+
+    // Pop-up Window setup
+    public void AddRecord() {
+
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_window, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        editTextFilmTitleEdit = findViewById(R.id.editTextFilmTitleEdit);
+        editTexYearEdit = findViewById(R.id.editTexYearEdit);
+        editTextDirectorEdit = findViewById(R.id.editTextDirectorEdit);
+        editTextCountryEdit = findViewById(R.id.editTextCountryEdit);
+
+
+        //OK button function
+        buttonOK = findViewById(R.id.buttonOKEdit);
+        buttonOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sqh.addRecords(sqdb, editTextFilmTitleEdit.getText().toString(), editTexYearEdit.getText().toString(), editTextDirectorEdit.getText().toString(), editTextCountryEdit.getText().toString());
+                popupWindow.dismiss();
+            }
+        });
+
+        //Cancel button function
+        buttonCancel = findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        //Dismiss pop up window when non-pop-window area is touched, or back/home key is pressed
+        popupWindow.setTouchable(true);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false; //return true to disable this function
+            }
+        });
+    }
+
+    public void EditRecord(View view) {
+
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_window_edit, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+
+        //Cancel button function
+        buttonCancel = findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        //Dismiss pop up window when non-pop-window area is touched, or back/home key is pressed
+        popupWindow.setTouchable(true);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false; //return true to disable this function
+            }
+        });
+    }
 }
+
