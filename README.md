@@ -1,2 +1,2 @@
 # FilmExplorerSample
-Another homework as sample to explore the and add data within Android and SQLite
+Another homework as sample to explore how to interact with the local database in the android
